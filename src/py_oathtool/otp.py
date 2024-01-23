@@ -121,8 +121,8 @@ def print_code(config, args):
     print('%s\t(%dsec)' % (code, (CODE_INTERVAL - (datetime.datetime.now().second % CODE_INTERVAL))))
 
   # Put the code on the clipboard unless disabled or not printing to a terminal
-  if ('use_clipboard' not in config or config['use_clipboard'] == False) and sys.stdout.isatty():
-    copy_to_clipboard(config, code)
+  if ('use_clipboard' not in config or config['use_clipboard'] == True) and sys.stdout.isatty():
+    copy_to_clipboard(code)
 
 
 def wait_for_next_code(config, args):
