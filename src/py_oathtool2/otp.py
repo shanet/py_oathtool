@@ -1,9 +1,5 @@
-#!/usr/bin/python3
+#! /usr/bin/python
 
-###
-### Wrapper script to assist generating OTP codes with oathtool
-### along with 2FA secrets stored in a YAML data file
-###
 import argparse
 import datetime
 import os

@@ -4,7 +4,7 @@ import re
 import sys
 import unittest
 
-import src.py_oathtool.otp as otp
+import src.py_oathtool2.otp as otp
 
 class otp_tests(unittest.TestCase):
   def test_print_labels(self):

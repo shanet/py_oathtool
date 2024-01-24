@@ -1,18 +1,18 @@
-# py_oathtool
+# py_oathtool2
 
-py_oathtool is a Python wrapper script for easy OTP code generation on the command line.
-
-This project was born out of my frustration of having many many 2-Factor accounts on my mobile phone, which did not present a quick and easy mechanism to generate and use codes.
+py_oathtool2 is a Python script for easy OTP code generation on the command line for use with scripting or simply as a convenience. It is a maintained fork of https://github.com/matalo33/py_oathtool.
 
 ## Installation
 
-`pip install py_oathtool`
+`pip install py_oathtool2`
 
 ## Dependencies
 
-Clipboard support on MacOS is supported by `pbcopy` which is installed by default.
+`py_oathtool2` automatically copies codes to the clipboard. This depends on the following programs being installed:
 
-For Linux with X11 install `xclip` or `wl-copy` for Wayland.
+* Linux with X11: `xclip`
+* Linux with Wayland: `wl-copy`
+* MacOS: `pbcopy` (installed by default)
 
 ## Configuration
 
@@ -29,7 +29,7 @@ otpsecrets:
   aws-account-prod: 57QPXJFJ4D2ILQBRZGSHKAZCJ2Y46C52FGVSZRYMY7UMWTIQI6I3GOJQZ4VJN2R4
 ```
 
-Additionally, the following configuration options are supported in the **~/.otp-secrets.yaml** file:
+Additionally, the following configuration options are supported in the `~/.otp-secrets.yaml` file:
 
 * `holdoff`: Specify a different holdoff value to wait for the next code
 * `use_clipboard`: Disable putting the code on the clipboard
@@ -74,7 +74,7 @@ After cloning use `pipenv` to install dependencies and run the script:
 
 ```
 pipenv install
-pipenv run python src/py_oathtool/otp.py [args]
+pipenv run python src/py_oathtool2/otp.py [args]
 ```
 
 ### Running Tests
@@ -87,17 +87,19 @@ pipenv run python -m unittest test/test_otp.py
 
 ```
 pipenv run python -m build
-pip install --force-reinstall dist/py_oathtool-*.whl
+pip install --force-reinstall dist/py_oathtool2-*.whl
 ```
 
 ### Upload to PyPI
 
 ```
-twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+pipenv run python -m twine upload --config-file ~/.pypirc dist/*
 ```
 
 ## Disclaimer
 
-2-Factor is meant to provide an extra layer of account security and this tool does not exactly promote that concept. You should be responsible for taking reasonable steps to protect your secrets file, and perhaps this is not the ideal 2-Factor solution for your most important accounts.
+Two factor auth is meant to provide an extra layer of account security and this tool does not exactly promote that concept. You are responsible for taking reasonable steps to protect your secrets file to prevent loss of secrets, and perhaps this is not the ideal two factor solution for your most important accounts.
 
-I take no responsibility if you lose accounts through using this tool.
+## License
+
+GPLv2

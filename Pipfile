@@ -10,3 +10,4 @@ pyyaml = "*"
 
 [dev-packages]
 build = "*"
+twine = "*"
