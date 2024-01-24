@@ -143,6 +143,8 @@ def copy_to_clipboard(code):
     process = subprocess.Popen(clipboard_program, stdin=subprocess.PIPE, text=True)
     process.stdin.write(code)
     process.stdin.close()
+  except FileNotFoundError:
+    print('%s not found, skipping putting code on the clipboard', % clipboard_program[0])
   except subprocess.CalledProcessError:
     print('Couldn\'t put code on the clipboard')
 
