@@ -48,7 +48,7 @@ def parse_args():
   parser.add_argument('-t', '--tab-complete', help='list suitable for tab completion', action='store_true')
   parser.add_argument('-f', '--force', help='disable the <%i second holdoff feature' % DEFAULT_HOLDOFF, action='store_true')
   parser.add_argument('-s', '--secrets-file', help='secrets YAML file', default=DEFAULT_CONFIG_PATH)
-  parser.add_argument('-m', '--minimalist', help='Don\'t print the time remaining for the current code', action='store_true')
+  parser.add_argument('-e', '--terse', help='Don\'t print the time remaining for the current code', action='store_true')
 
   args = parser.parse_args()
 
@@ -110,9 +110,9 @@ def print_code(config, args):
   # Get the current code
   code = oathtool.generate_otp(config['otpsecrets'][args.label])
 
-  # Only print the code if requested
-  if args.minimalist:
-    print(code)
+  # Only print the code if requested (without a newline too as this is typically used for scripting)
+  if args.terse:
+    print(code, end='')
   else:
     print('%s\t(%dsec)' % (code, (CODE_INTERVAL - (datetime.datetime.now().second % CODE_INTERVAL))))
 
@@ -126,7 +126,7 @@ def wait_for_next_code(config, args):
   time_remaining = (CODE_INTERVAL - (datetime.datetime.now().second % CODE_INTERVAL))
 
   if not args.force and time_remaining < config['holdoff']:
-    if not args.minimalist:
+    if not args.terse:
       print('Short lived OTP. Holding off for %i second%s...' % (time_remaining, ('' if time_remaining == 1 else 's')))
 
     time.sleep(time_remaining)
