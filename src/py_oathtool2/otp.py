@@ -65,7 +65,7 @@ def parse_args():
 def read_config(path):
   # File exists?
   if not os.path.isfile(path):
-    sys.exit('Could not find the secrets file at: %s' % path)
+    sys.exit('Could not find the secrets file at: %s' % path, file=sys.stderr)
 
   # Try and parse for valid YAML
   try:
@@ -73,7 +73,7 @@ def read_config(path):
       config = yaml.safe_load(file)
   except yaml.YAMLError as error:
     if hasattr(error, 'problem_mark'):
-      sys.exit('Problem parsing YAML\nError position: (%s:%s)' % (error.problem_mark.line + 1, error.problem_mark.column + 1))
+      sys.exit('Problem parsing YAML\nError position: (%s:%s)' % (error.problem_mark.line + 1, error.problem_mark.column + 1), file=sys.stderr)
     else:
       sys.exit(error)
 
@@ -101,7 +101,7 @@ def print_labels(config, args):
 def print_code(config, args):
   # Check the label exists
   if args.label not in config['otpsecrets']:
-    print('Couldn\'t find label \'%s\' in the yaml. (Try the -l switch?)' % args.label)
+    print('Couldn\'t find label \'%s\' in configuration' % args.label, file=sys.stderr)
     return
 
   # Wait for the next code if under the holdoff limit
@@ -126,7 +126,9 @@ def wait_for_next_code(config, args):
   time_remaining = (CODE_INTERVAL - (datetime.datetime.now().second % CODE_INTERVAL))
 
   if not args.force and time_remaining < config['holdoff']:
-    print('Short lived OTP. Holding off for %i second%s...' % (time_remaining, ('' if time_remaining == 1 else 's')))
+    if not args.minimalist:
+      print('Short lived OTP. Holding off for %i second%s...' % (time_remaining, ('' if time_remaining == 1 else 's')))
+
     time.sleep(time_remaining)
 
 
@@ -144,9 +146,9 @@ def copy_to_clipboard(code):
     process.stdin.write(code)
     process.stdin.close()
   except FileNotFoundError:
-    print('%s not found, skipping putting code on the clipboard', % clipboard_program[0])
+    print('%s not found, skipping putting code on the clipboard' % clipboard_program[0], file=sys.stderr)
   except subprocess.CalledProcessError:
-    print('Couldn\'t put code on the clipboard')
+    print('Couldn\'t put code on the clipboard', file=sys.stderr)
 
 
 if __name__ == '__main__':

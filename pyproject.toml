@@ -4,7 +4,7 @@ description     = "A Python script for generating OTP codes"
 name            = "py_oathtool2"
 readme          = "README.md"
 requires-python = ">=3.8"
-version         = "1.2.2"
+version         = "1.2.4"
 
 classifiers = [
   "Intended Audience :: Developers",
