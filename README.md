@@ -83,7 +83,7 @@ pipenv run python src/py_oathtool2/otp.py [args]
 pipenv run python -m unittest test/test_otp.py
 ```
 
-### Building & Installing
+### Building & Installing Locally
 
 ```
 pipenv run python -m build
@@ -93,6 +93,8 @@ pip install --force-reinstall dist/py_oathtool2-*.whl
 ### Upload to PyPI
 
 ```
+rm dist/*
+pipenv run python -m build
 pipenv run python -m twine upload --config-file ~/.pypirc dist/*
 ```
 
