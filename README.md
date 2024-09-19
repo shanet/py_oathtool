@@ -57,7 +57,10 @@ $ otp --help
 
 ## Shell Autocompletion
 
-Autocompletion support can be added through use of the `-t` flag.
+Autocompletion support can be added through use of the `-t` or `-l` flags. The former space-delimits accounts and the latter by newlines.
+
+
+### zsh
 
 For zsh support, add the following to your `.zshrc` file:
 
@@ -66,6 +69,14 @@ compdef _otp otp
 _otp() {
     compadd `otp -t`
 }
+```
+
+### fish
+
+For fish support, add the following to your `config.fish`:
+
+```
+complete --command otp --no-files --arguments "(otp -l)"
 ```
 
 ## Development
