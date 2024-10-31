@@ -84,7 +84,7 @@ complete --command otp --no-files --arguments "(otp -l)"
 After cloning use `pipenv` to install dependencies and run the script:
 
 ```
-pipenv install
+pipenv install --dev
 pipenv run python src/py_oathtool2/otp.py [args]
 ```
 
