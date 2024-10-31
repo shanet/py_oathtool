@@ -138,6 +138,8 @@ def copy_to_clipboard(code):
   if platform.system() == 'Linux':
     # If on Linux determine if using X11 or Wayland
     clipboard_program = ['wl-copy'] if 'WAYLAND_DISPLAY' in os.environ else ['xclip', '-selection', 'clipboard']
+  elif platform.system() == 'Windows':
+    clipboard_program = ['clip']
   else:
     clipboard_program = ['pbcopy']
 
