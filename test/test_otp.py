@@ -19,12 +19,12 @@ class otp_tests(unittest.TestCase):
 
   def test_generate_code(self):
     output = self._execute(['foo'])
-    self.assertRegex(output, re.compile('.*[\d]{6}\\t\([\d]{1,2}sec\)$'))
+    self.assertRegex(output, re.compile('.*[\\d]{6}\\t\\([\\d]{1,2}sec\\)$'))
 
 
   def test_generate_code_without_time(self):
-    output = self._execute(['--minimalist', 'foo'])
-    self.assertRegex(output, re.compile('.*[\d]{6}$'))
+    output = self._execute(['--terse', 'foo'])
+    self.assertRegex(output, re.compile('.*[\\d]{6}$'))
 
 
   def _execute(self, args):
